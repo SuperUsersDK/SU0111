@@ -45,7 +45,7 @@ a2enmod qos
 systemctl restart apache2
 ```
 
-Modulet qos kan f.eks. konfigures på denne måde:
+Nu kan qos modulet f.eks. konfigures til 20 connections per ip, hvis serveren har mindst 100 aktive connection ialt med følgende linjer:
 ```bash
 echo "<IfModule mod_qos.c>" > /etc/apache2/mods-available/qos.conf
 echo "	QS_SRVMaxConnPerIP 20 100" >> /etc/apache2/mods-available/qos.conf

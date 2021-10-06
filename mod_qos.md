@@ -44,3 +44,11 @@ echo "LoadModule qos_module /usr/lib/apache2/modules/mod_qos.so" > /etc/apache2/
 a2enmod qos
 systemctl restart apache2
 ```
+
+Modulet qos kan f.eks. konfigures på denne måde:
+```bash
+echo "<IfModule mod_qos.c>" > /etc/apache2/mods-available/qos.conf
+echo "	QS_SRVMaxConnPerIP 20 100" >> /etc/apache2/mods-available/qos.conf
+echo "</IfModule>" >> /etc/apache2/mods-available/qos.
+```
+

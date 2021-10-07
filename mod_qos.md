@@ -47,8 +47,11 @@ systemctl restart apache2
 
 Nu kan qos modulet f.eks. konfigures til 20 connections per ip, hvis serveren har mindst 100 aktive connection ialt med følgende linjer:
 ```
-echo "<IfModule mod_qos.c>" > /etc/apache2/mods-available/qos.conf
-echo "	QS_SRVMaxConnPerIP 20 100" >> /etc/apache2/mods-available/qos.conf
-echo "</IfModule>" >> /etc/apache2/mods-available/qos.conf
+cd /etc/apache2/mods-available/
+echo "<IfModule mod_qos.c>" > qos.conf
+echo "	QS_SRVMaxConnPerIP 20 100" >> qos.conf
+echo "</IfModule>" >> qos.conf
+cd /etc/apache2/mods-enabled/
+ln -s ../mods/available/qos.conf .
 ```
 

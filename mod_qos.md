@@ -51,6 +51,7 @@ cd /etc/apache2/mods-available/
 echo "<IfModule mod_qos.c>" > qos.conf
 echo "	QS_SRVMaxConnPerIP 20 100" >> qos.conf
 echo "</IfModule>" >> qos.conf
+
 cd /etc/apache2/mods-enabled/
 ln -s ../mods/available/qos.conf .
 ```

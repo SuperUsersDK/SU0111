@@ -42,7 +42,6 @@ Nu skal modulet enables:
 ```
 echo "LoadModule qos_module /usr/lib/apache2/modules/mod_qos.so" > /etc/apache2/mods-available/qos.load
 a2enmod qos
-systemctl restart apache2
 ```
 
 Nu kan qos modulet f.eks. konfigures til 20 connections per ip, hvis serveren har mindst 100 aktive connection ialt med følgende linjer:
@@ -56,3 +55,7 @@ cd /etc/apache2/mods-enabled/
 ln -s ../mods/available/qos.conf .
 ```
 
+Og tilsidst genstarte apache:
+```
+systemctl restart apache2
+```

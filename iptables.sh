@@ -32,6 +32,8 @@ $IPTABLES -A INPUT -i $INT_NIC ! -s $INT_NET -j LOG --log-prefix "(INPUT) SPOOFE
 $IPTABLES -A INPUT -i $INT_NIC ! -s $INT_NET -j DROP
 
 ### ACCEPT rules ###
+$IPTABLES -A INPUT -i $EXT_NIC -p tcp  --dport 22 -j ACCEPT
+
 $IPTABLES -A INPUT -i $INT_NIC -p tcp -s $INT_NET --dport 22 --syn -m state \
   --state NEW -j ACCEPT
 $IPTABLES -A INPUT -i $INT_NIC -p udp -s $INT_NET --dport 53 -m state --state NEW -j ACCEPT

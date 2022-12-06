@@ -32,7 +32,6 @@
       name:
         - php
         - samba
-        - openvpn
         - logwatch
         - httpd
         - binutils
@@ -46,8 +45,12 @@
         - dnf-automatic
         - dnf-plugins-core
         - python3-dnf-plugin-versionlock
-        - certbot
-        - python3-certbot-apache
+      state: present
+      update_cache: yes
+  - name: Install epel depend Alma Software
+    ansible.builtin.dnf:
+      name:
+        - openvpn
       state: present
       update_cache: yes
   - name: Disable firewalld

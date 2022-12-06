@@ -1,0 +1,12 @@
+---
+- name: SU0111 Exercises (Alma)
+  hosts: su111_alma
+  tasks:
+  - name: Install files for exercises
+    ansible.builtin.dnf:
+      name:
+        - mod_ssl
+        - certbot
+        - python3-certbot-apache
+      state: present
+      update_cache: yes

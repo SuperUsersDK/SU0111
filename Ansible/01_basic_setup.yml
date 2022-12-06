@@ -1,0 +1,67 @@
+---
+- name: SU0111 Hostnames
+  hosts: su111
+  tasks:
+  - name: "set hostnames"
+    ansible.builtin.hostname:
+      name: "{{ inventory_hostname }}"
+  - name: Create an user called "super"
+    ansible.builtin.user:
+      name: super
+      comment: Super Duper
+      group: users
+      password: !
+      shell: /bin/bash
+- hosts: su111_ubuntu
+  tasks:
+    - name: SU0111 Update Ubuntu Software
+      apt:
+        name: '*'
+        state: latest
+        update_cache: yes
+        only_upgrade: yes
+      register: apt_update_status
+    
+    - name: Remove deb packages not needed anymore
+      apt:
+        autoremove: yes
+
+    - name: Reboot when packages were updated
+      reboot:
+        post_reboot_delay: 5
+      when: apt_update_status.changed
+
+- hosts: su111_alma
+  tasks:
+    - name: SU0111 Update Alma Software
+      dnf:
+        name: '*'
+        state: latest
+        update_cache: yes
+        update_only: yes
+      register: dnf_update_status
+    
+    - name: Remove rpm packages not needed anymore
+      dnf:
+        autoremove: yes
+
+    - name: Reboot when packages were updated
+      reboot:
+        post_reboot_delay: 5
+      when: dnf_update_status.changed
+
+- hosts: su111
+  tasks:
+    - name: Change sshd MaxStartups
+      ansible.builtin.copy:
+        content: "MaxStartups 300\n"
+        dest: /etc/ssh/sshd_config.d/99-maxstartups.conf
+        owner: root
+        group: root
+        mode: '0600'
+      register: sshd_conf_changed
+    - name: restart sshd if MaxStartups changed
+      service:
+        name: sshd
+        state: restarted
+      when: sshd_conf_changed

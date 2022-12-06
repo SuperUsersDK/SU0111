@@ -1,0 +1,6 @@
+---
+- name: Check OS
+  hosts: su111
+  tasks:
+  - name: System Details
+    debug: msg="{{ ansible_distribution }} - {{ ansible_distribution_version }}"

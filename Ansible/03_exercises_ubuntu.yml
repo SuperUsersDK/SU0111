@@ -1,0 +1,13 @@
+---
+- name: SU0111 Exercises (Ubuntu)
+  hosts: su111_ubuntu
+  tasks:
+  - name: Install files for exercises
+    ansible.builtin.copy:
+      src: command.txt.gpg
+      dest: /root/command.txt.gpg
+      mode: '0600'
+      owner: root
+      group: root
+      checksum: 11ad3c833e34cd4f416842b83c4ed42d401e447b
+

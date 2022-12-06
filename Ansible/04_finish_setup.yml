@@ -1,0 +1,6 @@
+---
+- name: SU0111 Update locate database
+  hosts: su111
+  tasks:
+  - name: SU0111 Update locate database
+    ansible.builtin.command: /usr/bin/updatedb

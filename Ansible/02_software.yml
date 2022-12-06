@@ -1,0 +1,57 @@
+---
+- name: SU0111 Setup (Ubuntu)
+  hosts: su111_ubuntu
+  tasks:
+  - name: Install Ubuntu Software
+    ansible.builtin.apt:
+      name: 
+        - lynx
+        - tmux 
+        - mlocate 
+        - nmap 
+        - debsums 
+        - fail2ban
+        - logwatch
+        - unattended-upgrades
+        - build-essential
+        - sshfs
+        - encfs
+        - openvpn
+        - autofs
+        - certbot
+        - python3-certbot-apache
+      state: present
+      update_cache: yes
+      install_recommends: yes
+
+- name: SU0111 Setup (Alma)
+  hosts: su111_alma
+  tasks:
+  - name: Install Alma Software
+    ansible.builtin.dnf:
+      name:
+        - php
+        - samba
+        - openvpn
+        - logwatch
+        - httpd
+        - binutils
+        - tmux
+        - mlocate
+        - nmap
+        - lynx
+        - wget
+        - tar
+        - epel-release
+        - dnf-automatic
+        - dnf-plugins-core
+        - python3-dnf-plugin-versionlock
+        - certbot
+        - python3-certbot-apache
+      state: present
+      update_cache: yes
+  - name: Disable firewalld
+    ansible.builtin.systemd:
+      name: firewalld
+      state: stopped
+      enabled: no
